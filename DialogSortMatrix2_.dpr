@@ -1,14 +1,14 @@
-program DIMINI_;
+program DialogSortMatrix2_;
 
 uses
   Forms,
-  DIMINI in 'DIMINI.pas' {Form3};
+  DialogSortMatrix2 in 'DialogSortMatrix2.pas' {Form2};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TForm3, Form3);
+  Application.CreateForm(TForm2, Form2);
   Application.Run;
 end.

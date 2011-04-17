@@ -1,10 +1,10 @@
-unit DialogSortMatrix;
+unit DialogSortMatrix2;
 
 interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ExtCtrls;
+  Dialogs, StdCtrls;
 
 type
   TForm2 = class(TForm)
@@ -12,10 +12,8 @@ type
     sdlg: TSaveDialog;
     Open: TButton;
     Save: TButton;
-    tme: TTimer;
     procedure OpenClick(Sender: TObject);
     procedure SaveClick(Sender: TObject);
-    procedure tmeTimer(Sender: TObject);
   private
     { Private declarations }
   public
@@ -25,11 +23,10 @@ type
 var
   Form2: TForm2;
   f,ff:textfile;
-  i,x:integer;
+  i,j,x,y,mn,mx:integer;
 implementation
-   uses Dimini;
 type
-  mas=array[1..100] of real;
+  mas=array[1..100,1..100] of real;
 var
   m:mas;
 {$R *.dfm}
@@ -41,19 +38,36 @@ begin
   a:=b;
   b:=c;
 end;
-function min(m:mas;i:integer):integer;
+function min(m:mas):integer;
 var
- j:integer;
- a:integer;
+a,b:integer;
 begin
- a:=i;
- for j := i+1 to x do
-  if m[a]>m[j] then
-   a:=j;
+a:=1;
+b:=1;
+for i := 1 to x do
+for j := 1 to y do
+ if m[i,j]<m[a,b] then
+   begin
+     a:=i;
+     b:=j
+   end;
  min:=a;
 end;
-
-
+ function max(m:mas):integer;
+var
+ a,b:integer;
+begin
+a:=1;
+b:=1;
+for i := 1 to x do
+for j := 1 to y do
+ if m[i,j]>m[a,b] then
+   begin
+     a:=i;
+     b:=j
+   end;
+ max:=a;
+end;
 procedure TForm2.OpenClick(Sender: TObject);
 begin
  if odlg.Execute=true then
@@ -69,23 +83,29 @@ begin
    assignfile(ff,sdlg.FileName);
     rewrite(ff);
     reset(f);
-    readln(f,x);
+    read(f,x);
+    readln(f,y);
     for i := 1 to x do
-     read(f,m[i]);
-    for i := 1 to x-1 do
-     change(m[i],m[min(m,i)]);
+    begin
+    for j := 1 to y do
+    read(f,m[i,j]);
+    readln(f);
+    end;
+    mn:= min(m);
+    mx:=  max(m);
+    for j := 1 to y do
+     change(m[mn,j],m[mx,j]);
     for i := 1 to x do
-    write(ff,floattostr(m[i]),' ');
+    begin
+    for j := 1 to y do
+  write(ff,floattostr(m[i,j]),' ');
+  writeln(ff);
+    end;
     closefile(ff);
     closefile(f);
    end;
 end;
 
-procedure TForm2.tmeTimer(Sender: TObject);
-begin
-  form3.Show;
-  form2.Hide;
-  tme.Enabled:=false;
-end;
+
 
 end.

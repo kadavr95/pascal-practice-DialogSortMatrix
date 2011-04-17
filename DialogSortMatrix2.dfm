@@ -1,9 +1,9 @@
 object Form2: TForm2
-  Left = 394
-  Top = 444
+  Left = 0
+  Top = 0
   Caption = 'Form2'
-  ClientHeight = 80
-  ClientWidth = 674
+  ClientHeight = 294
+  ClientWidth = 467
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,11 +11,10 @@ object Form2: TForm2
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  Position = poDesigned
   PixelsPerInch = 96
   TextHeight = 13
   object Open: TButton
-    Left = 224
+    Left = 80
     Top = 8
     Width = 75
     Height = 25
@@ -24,7 +23,7 @@ object Form2: TForm2
     OnClick = OpenClick
   end
   object Save: TButton
-    Left = 328
+    Left = 176
     Top = 8
     Width = 75
     Height = 25
@@ -36,9 +35,5 @@ object Form2: TForm2
   end
   object sdlg: TSaveDialog
     Left = 32
-  end
-  object tme: TTimer
-    Interval = 1
-    Left = 64
   end
 end
